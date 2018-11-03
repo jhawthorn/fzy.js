@@ -1,0 +1,11 @@
+{
+  "name": "fzy.js",
+  "version": "0.0.0",
+  "description": "Fuzzy finding algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Hawthorn <john@hawthorn.email>",
+  "license": "MIT"
+}
