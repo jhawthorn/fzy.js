@@ -1,6 +1,6 @@
 {
   "name": "fzy.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Fuzzy finding algorithm",
   "homepage": "http://github.com/jhawthorn/fzy.js",
   "main": "index.js",
