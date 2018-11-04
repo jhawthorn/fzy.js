@@ -1,5 +1,7 @@
 # fzy.js
-A javascript port of [fzy](https://github.com/jhawthorn/fzy)'s scoring algorithm
+A javascript port of [fzy](https://github.com/jhawthorn/fzy)'s fuzzy finder scoring algorithm
+
+[Try it out online!](https://jhawthorn.github.io/fzy-demo/)
 
 [![Build Status](https://travis-ci.com/jhawthorn/fzy.js.svg?branch=master)](https://travis-ci.com/jhawthorn/fzy.js)
 ![Build Size](http://img.badgesize.io/jhawthorn/fzy.js/master/index.js.svg?compression=gzip)
