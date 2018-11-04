@@ -45,6 +45,44 @@ function precompute_bonus(haystack) {
 	return match_bonus;
 }
 
+function compute(lower_needle, lower_haystack, match_bonus, D, M) {
+	var n = lower_needle.length;
+	var m = lower_haystack.length;
+
+	/*
+	 * D[][] Stores the best score for this position ending with a match.
+	 * M[][] Stores the best possible score at this position.
+	 */
+
+	for (var i = 0; i < n; i++) {
+		D[i] = new Array(m);
+		M[i] = new Array(m);
+
+		var prev_score = SCORE_MIN;
+		var gap_score = i == n - 1 ? SCORE_GAP_TRAILING : SCORE_GAP_INNER;
+
+		for (var j = 0; j < m; j++) {
+			if (lower_needle[i] == lower_haystack[j]) {
+				var score = SCORE_MIN;
+				if (!i) {
+					score = (j * SCORE_GAP_LEADING) + match_bonus[j];
+				} else if (j) { /* i > 0 && j > 0*/
+					score = Math.max(
+						M[i - 1][j - 1] + match_bonus[j],
+
+						/* consecutive match, doesn't stack with match_bonus */
+						D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE);
+				}
+				D[i][j] = score;
+				M[i][j] = prev_score = Math.max(score, prev_score + gap_score);
+			} else {
+				D[i][j] = SCORE_MIN;
+				M[i][j] = prev_score = prev_score + gap_score;
+			}
+		}
+	}
+}
+
 function score(needle, haystack) {
 	var n = needle.length;
 	var m = haystack.length;
@@ -74,40 +112,9 @@ function score(needle, haystack) {
 
 	var D = new Array(n);
 	var M = new Array(n);
-
-	/*
-	 * D[][] Stores the best score for this position ending with a match.
-	 * M[][] Stores the best possible score at this position.
-	 */
 	var match_bonus = precompute_bonus(haystack, match_bonus);
 
-	for (var i = 0; i < n; i++) {
-		D[i] = new Array(m);
-		M[i] = new Array(m);
-
-		var prev_score = SCORE_MIN;
-		var gap_score = i == n - 1 ? SCORE_GAP_TRAILING : SCORE_GAP_INNER;
-
-		for (var j = 0; j < m; j++) {
-			if (lower_needle[i] == lower_haystack[j]) {
-				var score = SCORE_MIN;
-				if (!i) {
-					score = (j * SCORE_GAP_LEADING) + match_bonus[j];
-				} else if (j) { /* i > 0 && j > 0*/
-					score = Math.max(
-						M[i - 1][j - 1] + match_bonus[j],
-
-						/* consecutive match, doesn't stack with match_bonus */
-						D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE);
-				}
-				D[i][j] = score;
-				M[i][j] = prev_score = Math.max(score, prev_score + gap_score);
-			} else {
-				D[i][j] = SCORE_MIN;
-				M[i][j] = prev_score = prev_score + gap_score;
-			}
-		}
-	}
+	compute(lower_needle, lower_haystack, match_bonus, D, M)
 
 	return M[n - 1][m - 1];
 }
