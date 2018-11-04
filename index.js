@@ -11,11 +11,11 @@ var SCORE_MATCH_CAPITAL = 0.7
 var SCORE_MATCH_DOT = 0.6
 
 function islower(s) {
-	s.toLowerCase() === s;
+	return s.toLowerCase() === s;
 }
 
 function isupper(s) {
-	s.toUpperCase() === s;
+	return s.toUpperCase() === s;
 }
 
 function precompute_bonus(haystack) {
@@ -110,4 +110,22 @@ function score(needle, haystack) {
 	}
 
 	return M[n - 1][m - 1];
+}
+
+module.exports = {
+	/* constants */
+	SCORE_MIN: SCORE_MIN,
+	SCORE_MAX: SCORE_MAX,
+
+	SCORE_GAP_LEADING: SCORE_GAP_LEADING,
+	SCORE_GAP_TRAILING: SCORE_GAP_TRAILING,
+	SCORE_GAP_INNER: SCORE_GAP_INNER,
+	SCORE_MATCH_CONSECUTIVE: SCORE_MATCH_CONSECUTIVE,
+	SCORE_MATCH_SLASH: SCORE_MATCH_SLASH,
+	SCORE_MATCH_WORD: SCORE_MATCH_WORD,
+	SCORE_MATCH_CAPITAL: SCORE_MATCH_CAPITAL,
+	SCORE_MATCH_DOT: SCORE_MATCH_DOT,
+
+	/* functions */
+	score: score
 }
