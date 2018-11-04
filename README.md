@@ -2,6 +2,8 @@
 A javascript port of [fzy](https://github.com/jhawthorn/fzy)'s scoring algorithm
 
 [![Build Status](https://travis-ci.com/jhawthorn/fzy.js.svg?branch=master)](https://travis-ci.com/jhawthorn/fzy.js)
+![Build Size](http://img.badgesize.io/jhawthorn/fzy.js/master/index.js.svg?compression=gzip)
+![0 Dependencies](https://img.shields.io/badge/dependencies-0-44cc11.svg)
 
 # Installation
 
