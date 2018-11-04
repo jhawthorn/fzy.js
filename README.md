@@ -1,6 +1,7 @@
 # fzy.js
 A javascript port of [fzy](https://github.com/jhawthorn/fzy)'s scoring algorithm
 
+[![Build Status](https://travis-ci.com/jhawthorn/fzy.js.svg?branch=master)](https://travis-ci.com/jhawthorn/fzy.js)
 
 # Installation
 
