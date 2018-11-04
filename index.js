@@ -45,9 +45,14 @@ function precompute_bonus(haystack) {
 	return match_bonus;
 }
 
-function compute(lower_needle, lower_haystack, match_bonus, D, M) {
-	var n = lower_needle.length;
-	var m = lower_haystack.length;
+function compute(needle, haystack, D, M) {
+	var n = needle.length;
+	var m = haystack.length;
+
+	var lower_needle = needle.toLowerCase();
+	var lower_haystack = haystack.toLowerCase();
+
+	var match_bonus = precompute_bonus(haystack, match_bonus);
 
 	/*
 	 * D[][] Stores the best score for this position ending with a match.
@@ -107,14 +112,10 @@ function score(needle, haystack) {
 		return SCORE_MIN;
 	}
 
-	var lower_needle = needle.toLowerCase();
-	var lower_haystack = haystack.toLowerCase();
-
 	var D = new Array(n);
 	var M = new Array(n);
-	var match_bonus = precompute_bonus(haystack, match_bonus);
 
-	compute(lower_needle, lower_haystack, match_bonus, D, M)
+	compute(needle, haystack, D, M)
 
 	return M[n - 1][m - 1];
 }
@@ -138,14 +139,10 @@ function positions(needle, haystack) {
 		return positions;
 	}
 
-	var lower_needle = needle.toLowerCase();
-	var lower_haystack = haystack.toLowerCase();
-
 	var D = new Array(n);
 	var M = new Array(n);
-	var match_bonus = precompute_bonus(haystack, match_bonus);
 
-	compute(lower_needle, lower_haystack, match_bonus, D, M)
+	compute(needle, haystack, D, M)
 
 	/* backtrack to find the positions of optimal matching */
 	var match_required = false;
