@@ -32,3 +32,47 @@ fzy.positions("amuser", "app/models/customer.rb") // [ 0, 4, 12, 13, 17, 18 ]
 NB: `score` and `positions` must be called with matching needle and haystack,
 doing otherwise is undefined. The caller needs to check that there is a match.
 
+
+# Full Example
+
+``` javascript
+var { sortBy, escapeRegExp } = require("lodash");
+var fzy = require("fzy.js");
+
+var list = [
+	"app/models/user.rb",
+	"app/models/order.rb",
+	"app/models/customer.rb"
+];
+
+var query = "amuser";
+
+var regex = new RegExp(query.split('').map(escapeRegExp).join(".*"));
+
+list = list.filter((s) => s.match(regex));
+list = sortBy(list, (s) => -fzy.score(query, s));
+
+list.slice(0, 10);
+
+/* Print the list with matched positions */
+list.forEach((s) => {
+	var padded = "";
+	var p = fzy.positions(query, s);
+	for(var i = 0; i < query.length; i++) {
+		padded = padded.padEnd(p[i], ' ') + query[i];
+	}
+
+	console.log(s);
+	console.log(padded);
+	console.log("");
+});
+
+// Output:
+//
+// app/models/user.rb
+// a   m      user
+//
+// app/models/customer.rb
+// a   m       us   er
+
+```
