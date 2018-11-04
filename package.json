@@ -4,6 +4,10 @@
   "description": "Fuzzy finding algorithm",
   "homepage": "http://github.com/jhawthorn/fzy.js",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jhawthorn/fzy.js.git"
+  },
   "scripts": {
     "test": "jest"
   },
