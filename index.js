@@ -59,10 +59,10 @@ function compute(lower_needle, lower_haystack, match_bonus, D, M) {
 		M[i] = new Array(m);
 
 		var prev_score = SCORE_MIN;
-		var gap_score = i == n - 1 ? SCORE_GAP_TRAILING : SCORE_GAP_INNER;
+		var gap_score = i === n - 1 ? SCORE_GAP_TRAILING : SCORE_GAP_INNER;
 
 		for (var j = 0; j < m; j++) {
-			if (lower_needle[i] == lower_haystack[j]) {
+			if (lower_needle[i] === lower_haystack[j]) {
 				var score = SCORE_MIN;
 				if (!i) {
 					score = (j * SCORE_GAP_LEADING) + match_bonus[j];
@@ -90,7 +90,7 @@ function score(needle, haystack) {
 	if (!n || !m)
 		return SCORE_MIN;
 
-	if (n == m) {
+	if (n === m) {
 		/* Since this method can only be called with a haystack which
 		 * matches needle. If the lengths of the strings are equal the
 		 * strings themselves must also be equal (ignoring case).
@@ -128,7 +128,7 @@ function positions(needle, haystack) {
 	if (!n || !m)
 		return positions;
 
-	if (n == m) {
+	if (n === m) {
 		for (var i = 0; i < n; i++)
 			positions[i] = i;
 		return positions;
@@ -168,7 +168,7 @@ function positions(needle, haystack) {
 				 */
 				match_required =
 				    i && j &&
-				    M[i][j] == D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE;
+				    M[i][j] === D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE;
 				positions[i] = j--;
 				break;
 			}
