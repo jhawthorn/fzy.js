@@ -2,6 +2,7 @@
   "name": "fzy.js",
   "version": "0.1.0",
   "description": "Fuzzy finding algorithm",
+  "homepage": "http://github.com/jhawthorn/fzy.js",
   "main": "index.js",
   "scripts": {
     "test": "jest"
