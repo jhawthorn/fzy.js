@@ -1,6 +1,7 @@
 var fzy = require('.');
 
 var score = fzy.score;
+var positions = fzy.positions;
 
 var SCORE_MIN = fzy.SCORE_MIN;
 var SCORE_MAX = fzy.SCORE_MAX;
@@ -13,6 +14,8 @@ var SCORE_MATCH_SLASH = fzy.SCORE_MATCH_SLASH;
 var SCORE_MATCH_WORD = fzy.SCORE_MATCH_WORD;
 var SCORE_MATCH_CAPITAL = fzy.SCORE_MATCH_CAPITAL;
 var SCORE_MATCH_DOT = fzy.SCORE_MATCH_DOT;
+
+/* score(needle, haystack) */
 
 test("should_prefer_starts_of_words", function() {
 	/* App/Models/Order is better than App/MOdels/zRder  */
@@ -90,3 +93,38 @@ test("score_dot", function() {
 	expect(score("a", "*a.a")).toBe(SCORE_GAP_LEADING + SCORE_GAP_INNER + SCORE_MATCH_DOT);
 });
 
+
+/* positions(needle, haystack) */
+
+
+test("positions_consecutive", function() {
+	var p = positions("amo", "app/models/foo");
+	expect(p).toEqual([0,4,5]);
+});
+
+test("positions_start_of_word", function() {
+	/*
+	 * We should prefer matching the 'o' in order, since it's the beginning
+	 * of a word.
+	 */
+	var p = positions("amor", "app/models/order");
+	expect(p).toEqual([0,4,11,12]);
+});
+
+test("positions_no_bonuses", function() {
+	var p = positions("as", "tags");
+	expect(p).toEqual([1,3]);
+
+	var p = positions("as", "examples.txt");
+	expect(p).toEqual([2,7]);
+});
+
+test("positions_multiple_candidates_start_of_words", function() {
+	var p = positions("abc", "a/a/b/c/c");
+	expect(p).toEqual([2,4,6]);
+});
+
+test("positions_exact_match", function() {
+	var p = positions("foo", "foo");
+	expect(p).toEqual([0,1,2]);
+});

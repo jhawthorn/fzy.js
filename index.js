@@ -119,6 +119,65 @@ function score(needle, haystack) {
 	return M[n - 1][m - 1];
 }
 
+function positions(needle, haystack) {
+	var n = needle.length;
+	var m = haystack.length;
+
+	var positions = new Array(n);
+
+	if (!n || !m)
+		return positions;
+
+	if (n == m) {
+		for (var i = 0; i < n; i++)
+			positions[i] = i;
+		return positions;
+	}
+
+	if (m > 1024) {
+		return positions;
+	}
+
+	var lower_needle = needle.toLowerCase();
+	var lower_haystack = haystack.toLowerCase();
+
+	var D = new Array(n);
+	var M = new Array(n);
+	var match_bonus = precompute_bonus(haystack, match_bonus);
+
+	compute(lower_needle, lower_haystack, match_bonus, D, M)
+
+	/* backtrack to find the positions of optimal matching */
+	var match_required = false;
+
+	for (var i = n - 1, j = m - 1; i >= 0; i--) {
+		for (; j >= 0; j--) {
+			/*
+			 * There may be multiple paths which result in
+			 * the optimal weight.
+			 *
+			 * For simplicity, we will pick the first one
+			 * we encounter, the latest in the candidate
+			 * string.
+			 */
+			if (D[i][j] !== SCORE_MIN &&
+			    (match_required || D[i][j] === M[i][j])) {
+				/* If this score was determined using
+				 * SCORE_MATCH_CONSECUTIVE, the
+				 * previous character MUST be a match
+				 */
+				match_required =
+				    i && j &&
+				    M[i][j] == D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE;
+				positions[i] = j--;
+				break;
+			}
+		}
+	}
+
+	return positions;
+}
+
 module.exports = {
 	/* constants */
 	SCORE_MIN: SCORE_MIN,
@@ -134,5 +193,6 @@ module.exports = {
 	SCORE_MATCH_DOT: SCORE_MATCH_DOT,
 
 	/* functions */
-	score: score
+	score: score,
+	positions: positions
 }

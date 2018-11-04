@@ -15,11 +15,20 @@ npm i --save fzy.js
 `score(needle, haystack)`
 
 ``` javascript
-var score = require('fzy.js').score
+var fzy = require('fzy.js')
 
-score("amuser", "app/models/user.rb")     // 5.595
-score("amuser", "app/models/customer.rb") // 3.655
+fzy.score("amuser", "app/models/user.rb")     // 5.595
+fzy.score("amuser", "app/models/customer.rb") // 3.655
 ```
 
-NB: calling `score` with a needle which doesn't have a match in haystack is undefined.
-The caller needs to check that there is a match.
+
+`positions(needle, haystack)`
+
+``` javascript
+fzy.positions("amuser", "app/models/user.rb")     // [ 0, 4, 11, 12, 13, 14 ]
+fzy.positions("amuser", "app/models/customer.rb") // [ 0, 4, 12, 13, 17, 18 ]
+```
+
+NB: `score` and `positions` must be called with matching needle and haystack,
+doing otherwise is undefined. The caller needs to check that there is a match.
+
