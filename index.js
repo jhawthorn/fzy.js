@@ -175,6 +175,17 @@ function positions(needle, haystack) {
 	return positions;
 }
 
+function hasMatch(needle, haystack) {
+  needle = needle.toLowerCase()
+  haystack = haystack.toLowerCase()
+  var l = needle.length
+  for (var i = 0, j = 0; i < l; i += 1) {
+    j = haystack.indexOf(needle[i], j) + 1
+    if (j === 0) return false
+  }
+  return true
+}
+
 module.exports = {
 	/* constants */
 	SCORE_MIN: SCORE_MIN,
@@ -191,5 +202,6 @@ module.exports = {
 
 	/* functions */
 	score: score,
-	positions: positions
+	positions: positions,
+	hasMatch: hasMatch
 }
