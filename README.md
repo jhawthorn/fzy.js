@@ -3,6 +3,7 @@ A javascript port of [fzy](https://github.com/jhawthorn/fzy)'s fuzzy finder scor
 
 [Try it out online!](https://jhawthorn.github.io/fzy-demo/)
 
+[![CI status](https://github.com/jhawthorn/fzy.js/workflows/CI/badge.svg)](https://github.com/jhawthorn/fzy.js/actions)
 ![Build Size](http://img.badgesize.io/jhawthorn/fzy.js/master/index.js.svg?compression=gzip)
 ![0 Dependencies](https://img.shields.io/badge/dependencies-0-44cc11.svg)
 
