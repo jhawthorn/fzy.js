@@ -35,6 +35,7 @@ fzy.positions("amuser", "app/models/customer.rb") // [ 0, 4, 12, 13, 17, 18 ]
 
 NB: `score` and `positions` must be called with matching needle and haystack,
 doing otherwise is undefined. The caller needs to check that there is a match.
+See the full example below for a way to do this check.
 
 
 # Full Example
