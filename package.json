@@ -3,18 +3,27 @@
   "version": "0.4.0",
   "description": "Fuzzy finding algorithm",
   "homepage": "http://github.com/jhawthorn/fzy.js",
-  "main": "index.js",
+  "main": "index.cjs.js",
+  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/jhawthorn/fzy.js.git"
   },
+  "files": [
+    "index.js",
+    "index.cjs.js"
+  ],
   "scripts": {
+    "build": "rollup index.js -f commonjs -o index.cjs.js",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build",
     "test": "jest"
   },
   "author": "John Hawthorn <john@hawthorn.email>",
   "license": "MIT",
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "rollup": "^2.3.3"
   }
 }
