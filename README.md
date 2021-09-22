@@ -55,9 +55,8 @@ var list = [
 // Usually this is input from the user
 var query = "amuser";
 
-// fzy.js doesn't implement filtering, only scoring, but it is simple enough with a regexp
-var regex = new RegExp(query.split('').map(escapeRegExp).join(".*"));
-list = list.filter((s) => s.match(regex));
+// fzy.js includes `hasMatch` which can be used for filtering
+list = list.filter((s) => fzy.hasMatch(s));
 
 // Sort by fzy's scoring, descending (higher scores are better matches)
 list = sortBy(list, (s) => -fzy.score(query, s));
