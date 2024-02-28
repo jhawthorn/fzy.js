@@ -107,6 +107,7 @@ function compute(needle, haystack, D, M) {
 /**
  * @param {string} needle
  * @param {string} haystack
+ * @returns {number}
  */
 function score(needle, haystack) {
 	var n = needle.length;
@@ -143,6 +144,7 @@ function score(needle, haystack) {
 /**
  * @param {string} needle
  * @param {string} haystack
+ * @returns {number[]}
  */
 function positions(needle, haystack) {
 	var n = needle.length;
@@ -205,6 +207,7 @@ function positions(needle, haystack) {
 /**
  * @param {string} needle
  * @param {string} haystack
+ * @returns {boolean}
  */
 function hasMatch(needle, haystack) {
   needle = needle.toLowerCase()
