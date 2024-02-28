@@ -1,3 +1,4 @@
+// @ts-check
 var SCORE_MIN = -Infinity;
 var SCORE_MAX = Infinity;
 
@@ -10,14 +11,23 @@ var SCORE_MATCH_WORD = 0.8
 var SCORE_MATCH_CAPITAL = 0.7
 var SCORE_MATCH_DOT = 0.6
 
+/**
+ * @param {string} s
+ */
 function islower(s) {
 	return s.toLowerCase() === s;
 }
 
+/**
+ * @param {string} s
+ */
 function isupper(s) {
 	return s.toUpperCase() === s;
 }
 
+/**
+ * @param {string} haystack
+ */
 function precompute_bonus(haystack) {
 	/* Which positions are beginning of words */
 	var m = haystack.length;
@@ -45,6 +55,12 @@ function precompute_bonus(haystack) {
 	return match_bonus;
 }
 
+/**
+ * @param {string} needle
+ * @param {string} haystack
+ * @param {number[][]} D
+ * @param {number[][]} M
+ */
 function compute(needle, haystack, D, M) {
 	var n = needle.length;
 	var m = haystack.length;
@@ -52,7 +68,7 @@ function compute(needle, haystack, D, M) {
 	var lower_needle = needle.toLowerCase();
 	var lower_haystack = haystack.toLowerCase();
 
-	var match_bonus = precompute_bonus(haystack, match_bonus);
+	var match_bonus = precompute_bonus(haystack);
 
 	/*
 	 * D[][] Stores the best score for this position ending with a match.
@@ -88,6 +104,10 @@ function compute(needle, haystack, D, M) {
 	}
 }
 
+/**
+ * @param {string} needle
+ * @param {string} haystack
+ */
 function score(needle, haystack) {
 	var n = needle.length;
 	var m = haystack.length;
@@ -120,6 +140,10 @@ function score(needle, haystack) {
 	return M[n - 1][m - 1];
 }
 
+/**
+ * @param {string} needle
+ * @param {string} haystack
+ */
 function positions(needle, haystack) {
 	var n = needle.length;
 	var m = haystack.length;
@@ -144,7 +168,10 @@ function positions(needle, haystack) {
 
 	compute(needle, haystack, D, M)
 
-	/* backtrack to find the positions of optimal matching */
+	/**
+	 * backtrack to find the positions of optimal matching
+	 * @type {number | boolean}
+	 */
 	var match_required = false;
 
 	for (var i = n - 1, j = m - 1; i >= 0; i--) {
@@ -175,6 +202,10 @@ function positions(needle, haystack) {
 	return positions;
 }
 
+/**
+ * @param {string} needle
+ * @param {string} haystack
+ */
 function hasMatch(needle, haystack) {
   needle = needle.toLowerCase()
   haystack = haystack.toLowerCase()
