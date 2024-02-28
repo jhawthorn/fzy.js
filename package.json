@@ -14,7 +14,7 @@
     "index.cjs.js"
   ],
   "scripts": {
-    "build": "rollup index.js -f commonjs -o index.cjs.js",
+    "build": "rm -rf index.d.ts && tsc && rollup index.js -f commonjs -o index.cjs.js",
     "prepublishOnly": "npm run build",
     "pretest": "npm run build",
     "test": "jest"
@@ -24,6 +24,7 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "jest": "^23.6.0",
-    "rollup": "^2.3.3"
+    "rollup": "^2.3.3",
+    "typescript": "^5.3.3"
   }
 }
